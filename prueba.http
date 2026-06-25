@@ -1,0 +1,31 @@
+###
+GET http://localhost:3000/api/taskRead
+pato: mi love
+
+###
+POST http://localhost:3000/api/taskCreate
+content-type: application/json
+
+{
+    "taskName": "tiende la ropa",
+    "description": "holadsfaf",
+    "guestID": "5"
+}
+
+###
+PUT  http://localhost:3000/api/taskUpdate
+content-type: application/json
+
+{
+    "taskName": "Get it",
+    "description": "a las minutes",
+    "taskID": "22"
+}
+
+###
+DELETE   http://localhost:3000/api/taskDelete
+content-type: application/json
+
+{
+    "taskID": "13"
+}

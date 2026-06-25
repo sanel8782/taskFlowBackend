@@ -1,0 +1,30 @@
+###
+GET http://localhost:3000/api/guest
+
+
+###
+POST http://localhost:3000/api/guest
+content-type: application/json
+
+{
+    "Name": "MIO",
+    "LastName": "TU"
+}
+
+###
+PUT  http://localhost:3000/api/guest
+content-type: application/json
+
+{
+    "Name": "Sanel",
+    "LastName": "Meza",
+    "GuestID": "1"
+}
+
+###
+DELETE   http://localhost:3000/api/guest
+content-type: application/json
+
+{
+    "GuestID": "1"
+}
