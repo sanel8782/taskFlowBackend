@@ -5,7 +5,7 @@ const db = require('./db');
 async function readGuest(req, res) {
     let guests = [];
 
-    guests = await db.query('SELECT * FROM Guest');
+    guests = await db.query('SELECT * FROM "Guest"');
     res.json(guests);
 }
 

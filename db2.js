@@ -6,9 +6,9 @@ const client = new Client({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: 5432, // importante
-  ssl: {
-    rejectUnauthorized: false, // necesario para Supabase
-  },
+//   ssl: {
+//     rejectUnauthorized: false, // necesario para Supabase
+//   },
 });
 
 client.connect()

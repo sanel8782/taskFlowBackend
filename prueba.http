@@ -19,7 +19,7 @@ content-type: application/json
 {
     "taskName": "Get it",
     "description": "a las minutes",
-    "taskID": "22"
+    "taskID": "5"
 }
 
 ###
@@ -27,5 +27,5 @@ DELETE   http://localhost:3000/api/taskDelete
 content-type: application/json
 
 {
-    "taskID": "13"
+    "taskID": "2"
 }
