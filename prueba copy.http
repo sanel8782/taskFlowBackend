@@ -18,7 +18,7 @@ content-type: application/json
 {
     "Name": "Sanel",
     "LastName": "Meza",
-    "GuestID": "1"
+    "GuestID": "3"
 }
 
 ###
@@ -26,5 +26,5 @@ DELETE   http://localhost:3000/api/guest
 content-type: application/json
 
 {
-    "GuestID": "1"
+    "GuestID": "4"
 }

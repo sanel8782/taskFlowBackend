@@ -1,12 +1,12 @@
 //inicializaciones
-const db = require('./db');
+const db = require('./db2');
 
 //funciones
 async function readGuest(req, res) {
     let guests = [];
 
     guests = await db.query('SELECT * FROM "Guest"');
-    res.json(guests);
+    res.json(guests.rows);
 }
 
 async function createGuest(req, res) {
@@ -14,11 +14,11 @@ async function createGuest(req, res) {
     const Name = req.body.Name
     const LastName = req.body.LastName
 
-    guests = await db.query(`INSERT INTO Guest 
-    (Name, LastName)
-    VALUES ( @Name, @LastName)`,
-        { Name, LastName });
-    res.status(201);
+    guests = await db.query(`INSERT INTO "Guest" 
+    ("Name", "LastName")
+    VALUES ( $1, $2)`,
+        [ Name, LastName ]);
+    res.status(201).json();
 
 }
 
@@ -30,12 +30,12 @@ async function updateGuest(req, res) {
 
 
     guest = await db.query(`
-    UPDATE Guest
+    UPDATE "Guest"
     SET
-        Name = @Name,
-        LastName = @LastName
-    WHERE GuestID = @GuestID`,
-        { Name, LastName, GuestID });
+        "Name" = $1,
+        "LastName" = $2
+    WHERE "GuestID" = $3`,
+        [Name, LastName, GuestID] );
     res.json({
         "respuesta": "Su preticion fue actualizada exitosamente"
     });
@@ -51,9 +51,9 @@ async function deleteGuest(req, res) {
         })
     }
 
-
-    guest = await db.query(`DELETE Guest WHERE GuestID = @GuestID`,
-        { GuestID })
+    
+    guest = await db.query(`DELETE FROM "Guest" WHERE "GuestID" = $1`,
+         [GuestID] )
 
     res.json({
         "respuesta": "Su eliminacion fue hecha con exito"
