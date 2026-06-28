@@ -4,8 +4,11 @@ const db = require('./db2');
 //funciones
 async function readTask(req, res) {
     let task = [];
+    const guestId = req.query.guestId;
     try {
-        task = await db.query('SELECT * FROM "Task"');
+        task = await db.query('select * from "Task" where "GuestID" = $1'
+            , [guestId]
+        );
     } catch (error) {
         return ejecutarEnError(error, res);
     }
