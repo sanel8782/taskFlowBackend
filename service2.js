@@ -1,9 +1,9 @@
 //inicializaciones
-const db = require('./db2');
+const { client } = require("./db2");
 
 //funciones
 async function readGuest(req, res) {
-    const guests = await db.query('SELECT * FROM "Guest"');
+    const guests = await client.query('SELECT * FROM "Guest"');
     res.json(guests.rows);
 }
 
@@ -12,7 +12,7 @@ async function createGuest(req, res) {
     const Name = req.body.Name
     const LastName = req.body.LastName
 
-    await db.query(`INSERT INTO "Guest" 
+    await client.query(`INSERT INTO "Guest" 
     ("Name", "LastName")
     VALUES ( $1, $2)`,
         [ Name, LastName ]);
@@ -27,7 +27,7 @@ async function updateGuest(req, res) {
     const GuestID = req.body.GuestID
 
 
-    await db.query(`
+    await client.query(`
     UPDATE "Guest"
     SET
         "Name" = $1,
@@ -48,7 +48,7 @@ async function deleteGuest(req, res) {
         })
     }
 
-    await db.query(`DELETE FROM "Guest" WHERE "GuestID" = $1`,
+    await client.query(`DELETE FROM "Guest" WHERE "GuestID" = $1`,
          [GuestID] )
 
     res.json({

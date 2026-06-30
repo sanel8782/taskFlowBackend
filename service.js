@@ -1,6 +1,5 @@
 //inicializaciones
-const db = require('./db2');
-
+const { client } = require("./db2");
 let sqlResponse;
 
 //funciones
@@ -8,7 +7,7 @@ async function readTask(req, res) {
     const guestId = req.query.guestId;
     let task;
     try {
-        task = await db.query('select * from "Task" where "GuestID" = $1'
+        task = await client.query('select * from "Task" where "GuestID" = $1'
             , [guestId]
         );
     } catch (error) {
@@ -16,7 +15,7 @@ async function readTask(req, res) {
     }
     res.json(
         task.rows
-    );
+    )
 }
 
 function ejecutarEnError(error, res) {
@@ -40,14 +39,8 @@ async function createTask(req, res) {
         })
     }
 
-    // if (isNaN(guestID)) {
-    //     return res.status(400).json({
-    //         error: 'Se tiene que poner numero el espacio de guestID'
-    //     })
-    // }
-
     try {
-        sqlResponse = await db.query(`INSERT INTO "Task" 
+        sqlResponse = await client.query(`INSERT INTO "Task" 
             ("TaskName", "Description", "GuestID") 
             VALUES ($1, $2, $3)
             RETURNING "TaskID"`,
@@ -67,7 +60,7 @@ async function updateTask(req, res) {
     const description = req.body.description
     const taskID = req.body.taskID
 
-    await db.query(`
+    await client.query(`
         UPDATE "Task" 
         SET
 	        "TaskName" = $1,
@@ -83,7 +76,7 @@ async function updateTask(req, res) {
 async function deleteTask(req, res) {
     const taskID = req.body.taskID
 
-    await db.query(
+    await client.query(
         'DELETE  FROM "Task" WHERE "TaskID" = $1', [taskID] );
 
     res.json({

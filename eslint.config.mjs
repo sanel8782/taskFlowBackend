@@ -18,8 +18,12 @@ export default defineConfig([
     files: ["**/*.js"],
     languageOptions: {
       ecmaVersion: "latest",
-      sourceType: "module", // Usa "commonjs" si utilizas require()
-      globals: globals.node,
+      //avoid lint error in test
+      sourceType: "module",
+      globals: {
+        ...globals.node,
+        ...globals.jest, 
+      },
     },
 
     rules: {

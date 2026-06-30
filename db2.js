@@ -5,18 +5,15 @@ const client = new Client({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: 5432, // importante
-//   ssl: {
-//     rejectUnauthorized: false, // necesario para Supabase
-//   },
+  port: 5432,
 });
 
-client.connect()
-  .then(() => {
-    console.log("Conectado a PostgreSQL");
-  })
-  .catch((error) => {
-    console.error("Error conectando:", error);
-  });
+async function connectDB() {
+  await client.connect();
+  console.log("Conectado a PostgreSQL");
+}
 
-module.exports = client;
+module.exports = {
+  client,
+  connectDB,
+};
