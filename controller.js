@@ -1,4 +1,5 @@
 require('dotenv').config(); // Carga variables de entorno desde el archivo .env
+const { connectDB } = require("./db2");
 
 
 //inicializaciones
@@ -37,7 +38,10 @@ app.delete("/api/guest", deleteGuest);
 
 
 //ejecucion de programa
-app.listen(3000, () => console.log("server running"));
+app.listen(3000, async() => {
+    await connectDB();
+    console.log("server running")
+});
 
 
 
