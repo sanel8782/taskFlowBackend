@@ -1,8 +1,8 @@
 ###
-GET http://localhost:3000/api/taskRead?guestId=19
+GET https://www.pajarito.site/api/taskRead?guestId=
 
 ###
-POST http://localhost:3000/api/taskCreate
+POST https://www.pajarito.site/api/taskCreate
 content-type: application/json
 
 {
@@ -12,7 +12,7 @@ content-type: application/json
 }
 
 ###
-PUT  http://localhost:3000/api/taskUpdate
+PUT  https://www.pajarito.site/api/taskUpdate
 content-type: application/json
 
 {

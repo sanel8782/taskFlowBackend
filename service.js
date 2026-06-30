@@ -13,7 +13,7 @@ async function readTask(req, res) {
     } catch (error) {
         return ejecutarEnError(error, res);
     }
-    res.json(
+    res.status(200).json(
         task.rows
     )
 }
@@ -68,7 +68,7 @@ async function updateTask(req, res) {
         WHERE "TaskID" = $3 `,
          [taskName, description, taskID] );
 
-    res.json({
+    res.status(200).json({
         "respuesta": "Su preticion fue actualizada exitosamente"
     });
 }
@@ -79,7 +79,7 @@ async function deleteTask(req, res) {
     await client.query(
         'DELETE  FROM "Task" WHERE "TaskID" = $1', [taskID] );
 
-    res.json({
+    res.status(200).json({
         "respuesta": "Su eliminacion fue hecha con exito"
     });
 }
