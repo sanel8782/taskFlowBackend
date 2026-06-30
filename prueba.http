@@ -1,6 +1,5 @@
 ###
-GET http://localhost:3000/api/taskRead
-pato: mi love
+GET http://localhost:3000/api/taskRead?guestId=19
 
 ###
 POST http://localhost:3000/api/taskCreate
@@ -9,7 +8,7 @@ content-type: application/json
 {
     "taskName": "tiende la ropa",
     "description": "holadsfaf",
-    "guestID": "5"
+    "guestID": "19"
 }
 
 ###

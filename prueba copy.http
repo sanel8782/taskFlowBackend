@@ -1,13 +1,13 @@
 ###
-GET http://localhost:3000/api/guest
+GET https://www.pajarito.site/api/guest
 
 
 ###
-POST http://localhost:3000/api/guest
+POST https://www.pajarito.site/api/guest
 content-type: application/json
 
 {
-    "Name": "MIO",
+    "Name": "MIOdfd",
     "LastName": "TU"
 }
 

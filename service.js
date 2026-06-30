@@ -1,10 +1,12 @@
 //inicializaciones
 const db = require('./db2');
 
+let sqlResponse;
+
 //funciones
 async function readTask(req, res) {
-    let task = [];
     const guestId = req.query.guestId;
+    let task;
     try {
         task = await db.query('select * from "Task" where "GuestID" = $1'
             , [guestId]
@@ -32,7 +34,7 @@ async function createTask(req, res) {
     const guestID = req.body.guestID
 
     //validaciones
-    if (guestID == null) {
+    if (guestID === null) {
         return res.status(400).json({
             error: 'Se tiene que completar el espacio de guestID'
         })
@@ -65,7 +67,7 @@ async function updateTask(req, res) {
     const description = req.body.description
     const taskID = req.body.taskID
 
-    task = await db.query(`
+    await db.query(`
         UPDATE "Task" 
         SET
 	        "TaskName" = $1,
@@ -81,7 +83,7 @@ async function updateTask(req, res) {
 async function deleteTask(req, res) {
     const taskID = req.body.taskID
 
-    task = await db.query(
+    await db.query(
         'DELETE  FROM "Task" WHERE "TaskID" = $1', [taskID] );
 
     res.json({

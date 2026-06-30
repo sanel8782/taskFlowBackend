@@ -3,9 +3,7 @@ const db = require('./db2');
 
 //funciones
 async function readGuest(req, res) {
-    let guests = [];
-
-    guests = await db.query('SELECT * FROM "Guest"');
+    const guests = await db.query('SELECT * FROM "Guest"');
     res.json(guests.rows);
 }
 
@@ -14,7 +12,7 @@ async function createGuest(req, res) {
     const Name = req.body.Name
     const LastName = req.body.LastName
 
-    guests = await db.query(`INSERT INTO "Guest" 
+    await db.query(`INSERT INTO "Guest" 
     ("Name", "LastName")
     VALUES ( $1, $2)`,
         [ Name, LastName ]);
@@ -29,7 +27,7 @@ async function updateGuest(req, res) {
     const GuestID = req.body.GuestID
 
 
-    guest = await db.query(`
+    await db.query(`
     UPDATE "Guest"
     SET
         "Name" = $1,
@@ -41,18 +39,16 @@ async function updateGuest(req, res) {
     });
 }
 
-async function deleteGuest(req, res) {  
-
+async function deleteGuest(req, res) {
 
     const GuestID = req.body.GuestID
-    if (GuestID == null) {
+    if (GuestID === null) {
         res.status(400).json({
             "respuesta": "Debes poner un GuestID"
         })
     }
 
-    
-    guest = await db.query(`DELETE FROM "Guest" WHERE "GuestID" = $1`,
+    await db.query(`DELETE FROM "Guest" WHERE "GuestID" = $1`,
          [GuestID] )
 
     res.json({

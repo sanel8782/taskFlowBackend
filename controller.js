@@ -28,7 +28,7 @@ app.post("/api/taskCreate", createTask);
 app.put("/api/taskUpdate", updateTask);
 app.delete("/api/taskDelete", deleteTask);
 
-//endpoints para Guest 
+//endpoints para Guest
 app.get("/api/guest", readGuest);
 app.post("/api/guest", createGuest);
 app.put("/api/guest", updateGuest);
@@ -38,7 +38,6 @@ app.delete("/api/guest", deleteGuest);
 
 //ejecucion de programa
 app.listen(3000, () => console.log("server running"));
-
 
 
 
