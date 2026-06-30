@@ -4,12 +4,10 @@ on:
   push:
     branches:
       - master
-      - main
 
   pull_request:
     branches:
       - master
-      - main
 
 jobs:
   ci:
@@ -18,13 +16,13 @@ jobs:
     steps:
       # 1. Checkout repo
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # 2. Setup Node
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       # 3. Install dependencies
@@ -39,6 +37,22 @@ jobs:
       - name: Run tests
         run: npm test
 
-      # 6. Build
-      - name: Build project
-        run: npm run build
+
+  deploy:
+    needs: ci
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, '[CICD]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /home/christiangaspar55/taskFlowBackend
+            git fetch origin
+            git reset --hard origin/master
+            npm ci --omit=dev
+            pm2 restart controller
